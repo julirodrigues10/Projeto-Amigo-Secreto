@@ -2,16 +2,16 @@ alert('Bem vindo ao...');
 
 let amigos = []; 
 
-let titulo = document.querySelector('h1');
-titulo.innerHTML = 'Jogo do Amigo Secreto!';
-let paragrafo = document.querySelector('h2');
-paragrafo.innerHTML = 'Digite o nome dos seus Amigos';
+function textoNaTela (tag, texto) {
+    let campo = document.querySelector(tag);
+}
+textoNaTela('h1', 'Jogo do Amigo Secreto');
 
 let listaAmigos = document.querySelector('#listaAmigos');
 
 function adicionarNome() {
   let inputElement = document.querySelector('#amigo');
-  let nome = inputElement.value;
+  let nome = inputElement.value.trim();
 
   if (nome === '') {
     alert('Por favor, insira um nome.');
@@ -22,7 +22,6 @@ function adicionarNome() {
   inputElement.value = '';
   atualizarListaAmigos();
 }
-
 function atualizarListaAmigos() {
   listaAmigos.innerHTML = '';
 
@@ -32,30 +31,19 @@ function atualizarListaAmigos() {
     listaAmigos.appendChild(li);
   }
 }
-
 function sortearAmigoSecreto() {
-  if (amigos.length === 0) {
-    alert('Digite pelo menos um nome');
+  if (amigos.length < 1) {
+    alert('Sortei pelo menos 1 amigo.');
     return;
   }
-
-  let amigoAleatorio = Math.floor(Math.random() * amigos.length);
-  let amigoSorteado = amigos[amigoAleatorio];
+  let indiceAleatorio = getIndiceAleatorio(amigos.length);
+  let amigoSorteado = amigos[indiceAleatorio];
 
   let resultadoElement = document.querySelector("#resultado");
   resultadoElement.textContent = `O amigo secreto é: ${amigoSorteado}`;
-}
 
-let botao = document.querySelector('.button-add');
-botao.innerHTML = 'Adicionar Nome';
-botao.onclick = adicionarNome;
-
-function novoJogo() {
   amigos = [];
   atualizarListaAmigos();
-
-  let resultadoElement = document.querySelector("#resultado");
-  resultadoElement.textContent = "";
 
   let inputElement = document.querySelector('#amigo');
   inputElement.value = "";
@@ -63,3 +51,31 @@ function novoJogo() {
   let buttonDraw = document.querySelector('.button-draw');
   buttonDraw.disabled = false;
 }
+function novoJogo() {
+    console.log('Elemento amigos:', amigos);
+  console.log('Elemento listaAmigos:', listaAmigos);
+
+    amigos = [];
+    atualizarListaAmigos();
+  
+    let inputElement = document.querySelector('#amigo');
+    inputElement.value = "";
+
+    let resultadoElement = document.querySelector("#resultado");
+    resultadoElement.textContent = "";
+  
+    let buttonDraw = document.querySelector('.button-draw');
+    buttonDraw.disabled = false;
+}
+  let buttonNewGame = document.querySelector('.button-new-game');
+  buttonNewGame.onclick = novoJogo;
+
+function getIndiceAleatorio(max) {
+  return Math.floor(Math.random() * max);
+}
+  let botao = document.querySelector('.button-add');
+  botao.innerHTML = 'Adicionar Nome';
+  botao.onclick = adicionarNome;
+
+  let buttonDraw = document.querySelector('.button-draw');
+  buttonDraw.onclick = sortearAmigoSecreto;

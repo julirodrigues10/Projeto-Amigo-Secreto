@@ -6,6 +6,7 @@
     --color-button-hover: #e55720;
     --color-text: #444444;
     --color-white: #FFFFFF;
+    
 }
 
 /* Estilos gerais */
@@ -90,7 +91,12 @@ body {
 .button-container {
     width: 300px;
     justify-content: center;
+    display: flex; 
+    gap: 10px;
+    flex-direction: column ;
 }
+
+
 
 /* Estilos de entrada de texto */
 .input-title {
